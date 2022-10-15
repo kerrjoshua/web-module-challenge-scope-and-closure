@@ -30,11 +30,12 @@ console.log('example task:', processFirstItem(['foo','bar'],function(str){return
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
-  
+    counter1 uses a nested function to return a new unique counter every time it is assigned to a new variable. This variable's value is the anonymous function returned by counter1, and it preserves the lexical context of the counter1 function at the time it was invoked. counter2 uses a global count variable which can be accessed and manipulated by any function in the file.
   2. Which of the two uses a closure? How can you tell?
-  
+    counter1 creates a closure in that it returns a function which makes use of a variable (count) which was instantiated one level of scope above the function being returned. This allows each instantiation of the parent function to produce a seperately-trackable lexical context. 
   3. In what scenario would the counter1 code be preferable? In what scenario would 
      counter2 be better?  
+     As Keiran noted in the guided project for this module, counter2 would be useful in a scenario where we want multiple events to have access to a shared counter, such as a game where team members are all able to affect the score. On the other hand, counter1 would be suitable for a situation where we want the counter to be outside of any scope other than the one created by invoking it. This could be useful if we want to count events that have no impact on eachother, for example a game where one party scoring doesn't affect the opposing side's point total. 
 */
 
 // counter1 code
@@ -65,9 +66,10 @@ NOTE: This will be a callback function for the tasks below
 */
 
 function inning(/*Code Here*/){
-    /*Code Here*/
+    return Math.floor(Math.random * 3);
 }
 
+console.log(inning());
 
 /* ⚾️⚾️⚾️ Task 3: finalScore() ⚾️⚾️⚾️
 Use the finalScore function below to do the following:
