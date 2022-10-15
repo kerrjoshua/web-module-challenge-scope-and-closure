@@ -144,7 +144,8 @@ Use the scoreboard function below to do the following:
   Home and Away team's scores for each inning.  Not the cummulative score (see the example below).
   5. If there's a tie at the end of the innings, add this message containing the score to the end of the array:  "This game will require extra innings: Away 12 - Home 12"  (see tie example below)
      If there isn't a tie, add this message to the end of the array: "Final Score: Away 13 - Home 11"  (see no tie example below)
-  
+  */
+ /*
   NO TIE example: invoking scoreboard(getInningScore,inning, 9) might return 
   an array of strings like this:
 [
@@ -175,9 +176,40 @@ Use the scoreboard function below to do the following:
   "This game will require extra innings: Away 10 - Home 10"
 ] */
 // NOTE: There is no test associated with this code; if your output matches the given example, consider it complete!
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(cbGetInningScore, cbInning, noOfInnings) {
+  function counterMaker() {
+    let count = 0;
+    return function(inningScore) {
+      count += inningScore;
+      return count;
+    }
+  }
+  let homeCounter = counterMaker();
+  let awayCounter = counterMaker();
+  const scoreboard = [];
+
+  for (let i = 1; i <= noOfInnings; i++) {
+    let inningScoreHome = cbInning();
+    let inningScoreAway = cbInning();
+    let inningMessage = `Inning ${i}: Away ${inningScoreAway} - Home ${inningScoreHome}`;
+    homeCounter(inningScoreHome);
+    awayCounter(inningScoreAway);
+    scoreboard.push(inningMessage);
+  }
+  let winner = '';
+  if (homeCounter(0) > awayCounter(0)){ 
+    winner = 'The Home team'
+  } else {winner = 'The Away team'};
+  const finalMessageNoTie = `Final Score: Away ${awayCounter(0)} - Home ${homeCounter(0)}. ${winner} wins!`;
+  const finalMessageTie = `This game will require extra innings: Away ${awayCounter(0)} - Home ${homeCounter(0)}.`;
+  if (homeCounter(0) === awayCounter(0)){
+    scoreboard.push(finalMessageTie);
+  } else{
+    scoreboard.push(finalMessageNoTie);
+  }
+  return scoreboard;
 }
+console.log(scoreboard(getInningScore, inning, 9));
 
 
 
