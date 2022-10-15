@@ -86,10 +86,24 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(/*Code Here*/){
-  /*Code Here*/
+function finalScore(callbackInning, noOfInnings){
+  const score = {
+    Home: 0,
+    Away: 0
+  }
+  for (let i = 1; i <= noOfInnings; i++){
+   
+      let inningScoreHome = callbackInning();
+      // console.log(`Inning ${i} Home: `,inningScoreHome);
+      score.Home += inningScoreHome;
+      let inningScoreAway = callbackInning();
+      // console.log(`Inning ${i} Away: `, inningScoreAway);
+      score.Away += inningScoreAway;
+    
+  }
+  return score;
 }
-
+console.log('Task 3:  Final Score', finalScore(inning, 9))
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
 Use the getInningScore() function below to do the following:
