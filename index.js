@@ -118,10 +118,21 @@ For example: invoking getInningScore(inning) might return this object:
   */
 
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
-
+function getInningScore(callbackInning) {
+  
+  const score = {
+    Home: 0,
+    Away: 0
+  }
+  let inningScoreHome = callbackInning();
+  // console.log(`Inning ${i} Home: `,inningScoreHome);
+  score.Home += inningScoreHome;
+  let inningScoreAway = callbackInning();
+  // console.log(`Inning ${i} Away: `, inningScoreAway);
+  score.Away += inningScoreAway;
+return score;
 }
+console.log('Task 4:  ', getInningScore(inning));
 
 
 /* STRETCH: ⚾️⚾️⚾️ Task 5: scoreboard() ⚾️⚾️⚾️
